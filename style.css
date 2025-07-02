@@ -1,0 +1,709 @@
+/* Import Google Fonts for a modern look */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* Apply box-sizing: border-box globally for consistent sizing */
+html, body, * {
+    box-sizing: border-box;
+}
+
+:root {
+    /* Light Mode Variables */
+    --background-color-light: #f4f7f6; /* Soft background */
+    --text-color-light: #2c3e50; /* Dark text for contrast */
+    --card-background-light: #ffffff;
+    --border-color-light: #e0e6ed; /* Subtle border */
+    --button-primary-bg-light: #3498db; /* Vibrant blue */
+    --button-primary-hover-light: #2980b9;
+    --button-cancel-bg-light: #95a5a6; /* Softer grey */
+    --button-cancel-hover-light: #7f8c8d;
+    --button-delete-bg-light: #e74c3c; /* Red for delete */
+    --button-delete-hover-light: #c0392b;
+    --input-border-light: #cdd4df; /* Light input border */
+    --focus-ring-light: rgba(52, 152, 219, 0.3); /* Blue focus ring */
+    --header-color-light: #2c3e50;
+    --list-item-hover-light: #f0f3f6; /* Subtle hover */
+    --message-success-bg-light: #d4edda;
+    --message-success-color-light: #155724;
+    --message-error-bg-light: #f8d7da;
+    --message-error-color-light: #721c24;
+
+    /* Dark Mode Variables (Defaulted as requested) */
+    --background-color: #2b3a4a; /* Deep blue-grey background */
+    --text-color: #ecf0f1; /* Light text */
+    --card-background: #34495e; /* Slightly lighter card for contrast */
+    --border-color: #4a627d;
+    --button-primary-bg: #5fa8da; /* Adjusted blue for dark mode */
+    --button-primary-hover: #4e90c0;
+    --button-cancel-bg: #7f8c8d;
+    --button-cancel-hover: #6a7475;
+    --button-delete-bg: #e74c3c;
+    --button-delete-hover: #c0392b;
+    --input-border: #6a7e93;
+    --focus-ring: rgba(95, 168, 218, 0.4);
+    --header-color: #ecf0f1;
+    --list-item-hover: #415a72; /* Subtle hover */
+    --message-success-bg: #2ecc71; /* Green for dark mode success */
+    --message-success-color: #ffffff;
+    --message-error-bg: #e74c3c; /* Red for dark mode error */
+    --message-error-color: #ffffff;
+
+    /* General Shadows and Transitions */
+    --shadow-light: 0 4px 10px rgba(0, 0, 0, 0.08);
+    --shadow-dark: 0 6px 15px rgba(0, 0, 0, 0.3);
+    --transition-fast: 0.2s ease-in-out;
+    --transition-normal: 0.3s ease;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: background-color var(--transition-normal), color var(--transition-normal);
+}
+
+body.dark-mode {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.container {
+    padding: 20px; /* Reduced padding */
+    width: 800px;
+    margin: 20px auto; /* Reduced margin */
+    background-color: var(--card-background-light);
+    border-radius: 10px;
+    box-shadow: var(--shadow-light);
+    transition: background-color var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+body.dark-mode .container {
+    background-color: var(--card-background);
+    box-shadow: var(--shadow-dark);
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px; /* Reduced margin */
+    border-bottom: 1px solid var(--border-color-light);
+    padding-bottom: 10px; /* Reduced padding */
+}
+
+body.dark-mode header {
+    border-color: var(--border-color);
+}
+
+header h1 {
+    font-size: 1.8rem; /* Reduced font size */
+    font-weight: 700;
+    color: var(--header-color-light);
+}
+
+body.dark-mode header h1 {
+    color: var(--header-color);
+}
+
+/* Base theme-toggle styles (will be overridden for sidebar placement) */
+.theme-toggle {
+    background: none;
+    color: var(--text-color-light);
+    border: 1px solid var(--border-color-light);
+    padding: 8px 12px; /* Slightly reduced padding */
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.theme-toggle:hover {
+    background-color: var(--list-item-hover-light);
+}
+
+body.dark-mode .theme-toggle {
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
+
+body.dark-mode .theme-toggle:hover {
+    background-color: var(--list-item-hover);
+}
+
+/* Styles for theme-toggle button when inside the sidebar */
+.sidebar .theme-toggle {
+    display: flex;
+    align-items: center;
+    padding: 8px; /* Reduced padding */
+    text-decoration: none;
+    color: var(--text-color-light);
+    border-radius: 5px;
+    transition: background-color var(--transition-normal);
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    font-size: 0.95rem; /* Slightly reduced font size */
+}
+
+body.dark-mode .sidebar .theme-toggle {
+    color: var(--text-color);
+}
+
+.sidebar .theme-toggle:hover {
+    background-color: var(--list-item-hover-light);
+}
+
+body.dark-mode .sidebar .theme-toggle:hover {
+    background-color: var(--list-item-hover);
+}
+
+
+/* Form Styles */
+.input-group {
+    margin-bottom: 15px; /* Reduced margin */
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 6px; /* Reduced margin */
+    font-weight: 600;
+    color: var(--text-color-light);
+}
+
+body.dark-mode .input-group label {
+    color: var(--text-color);
+}
+
+.input-group input[type="text"],
+.input-group select {
+    width: 100%;
+    padding: 10px; /* Reduced padding */
+    border: 1px solid var(--input-border-light);
+    border-radius: 6px;
+    font-size: 0.95rem; /* Slightly reduced font size */
+    background-color: var(--card-background-light);
+    color: var(--text-color-light);
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast), color var(--transition-fast);
+}
+
+body.dark-mode .input-group input[type="text"],
+body.dark-mode .input-group select {
+    border-color: var(--input-border);
+    background-color: var(--card-background);
+    color: var(--text-color);
+}
+
+.input-group input[type="text"]:focus,
+.input-group select:focus {
+    outline: none;
+    border-color: var(--button-primary-bg-light);
+    box-shadow: 0 0 0 3px var(--focus-ring-light);
+}
+
+body.dark-mode .input-group input[type="text"]:focus,
+body.dark-mode .input-group select:focus {
+    border-color: var(--button-primary-bg);
+    box-shadow: 0 0 0 3px var(--focus-ring);
+}
+
+/* Quill Editor Specific Styles */
+#comment-editor {
+    height: 120px; /* Reduced height */
+    border: 1px solid var(--input-border-light);
+    border-radius: 6px;
+    font-size: 0.95rem; /* Slightly reduced font size */
+    background-color: var(--card-background-light);
+    color: var(--text-color-light);
+    overflow-y: auto;
+}
+
+body.dark-mode #comment-editor {
+    border-color: var(--input-border);
+    background-color: var(--card-background);
+    color: var(--text-color);
+}
+
+.ql-toolbar.ql-snow {
+    border: 1px solid var(--input-border-light);
+    border-bottom: none;
+    border-radius: 6px 6px 0 0;
+    background-color: var(--background-color-light);
+}
+
+body.dark-mode .ql-toolbar.ql-snow {
+    border-color: var(--input-border);
+    background-color: var(--card-background);
+}
+
+.ql-container.ql-snow {
+    border: 1px solid var(--input-border-light);
+    border-top: none;
+    border-radius: 0 0 6px 6px;
+    min-height: 120px; /* Reduced min-height */
+    background-color: var(--card-background-light);
+    color: var(--text-color-light);
+}
+
+body.dark-mode .ql-container.ql-snow {
+    border-color: var(--input-border);
+    background-color: var(--card-background);
+    color: var(--text-color);
+}
+
+.ql-editor {
+    color: var(--text-color-light);
+}
+
+body.dark-mode .ql-editor {
+    color: var(--text-color);
+}
+
+.ql-snow .ql-stroke {
+    stroke: var(--text-color-light);
+}
+
+body.dark-mode .ql-snow .ql-stroke {
+    stroke: var(--text-color);
+}
+
+.ql-snow .ql-fill {
+    fill: var(--text-color-light);
+}
+
+body.dark-mode .ql-snow .ql-fill {
+    fill: var(--text-color);
+}
+
+.ql-snow .ql-picker-label {
+    color: var(--text-color-light);
+}
+
+body.dark-mode .ql-snow .ql-picker-label {
+    color: var(--text-color);
+}
+
+
+.form-actions {
+    margin-top: 20px; /* Reduced margin */
+    display: flex;
+    gap: 8px; /* Reduced gap */
+    flex-wrap: wrap;
+}
+
+.form-actions button {
+    padding: 10px 18px; /* Reduced padding */
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.95rem; /* Reduced font size */
+    font-weight: 600;
+    transition: background-color var(--transition-fast), color var(--transition-fast), box-shadow var(--transition-fast);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.form-actions button:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+#save-btn {
+    background-color: var(--button-primary-bg-light);
+    color: white;
+}
+
+#save-btn:hover {
+    background-color: var(--button-primary-hover-light);
+}
+
+body.dark-mode #save-btn {
+    background-color: var(--button-primary-bg);
+}
+
+body.dark-mode #save-btn:hover {
+    background-color: var(--button-primary-hover);
+}
+
+#cancel-btn, #new-btn {
+    background-color: var(--button-cancel-bg-light);
+    color: white;
+}
+
+#cancel-btn:hover, #new-btn:hover {
+    background-color: var(--button-cancel-hover-light);
+}
+
+body.dark-mode #cancel-btn, body.dark-mode #new-btn {
+    background-color: var(--button-cancel-bg);
+}
+
+body.dark-mode #cancel-btn:hover, body.dark-mode #new-btn:hover {
+    background-color: var(--button-cancel-hover);
+}
+
+#delete-btn {
+    background-color: var(--button-delete-bg-light);
+    color: white;
+}
+
+#delete-btn:hover {
+    background-color: var(--button-delete-hover-light);
+}
+
+body.dark-mode #delete-btn {
+    background-color: var(--button-delete-bg);
+}
+
+body.dark-mode #delete-btn:hover {
+    background-color: var(--button-delete-hover);
+}
+
+/* Search Bar */
+.search-group {
+    margin-top: 20px; /* Reduced margin */
+    margin-bottom: 15px; /* Reduced margin */
+}
+
+.search-group input[type="text"] {
+    width: 100%;
+    padding: 10px; /* Reduced padding */
+    border: 1px solid var(--input-border-light);
+    border-radius: 6px;
+    font-size: 0.95rem; /* Reduced font size */
+    background-color: var(--card-background-light);
+    color: var(--text-color-light);
+}
+
+body.dark-mode .search-group input[type="text"] {
+    border-color: var(--input-border);
+    background-color: var(--card-background);
+    color: var(--text-color);
+}
+
+
+/* Entry List */
+#entry-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 15px; /* Reduced margin */
+    border-top: 1px solid var(--border-color-light);
+    padding-top: 10px; /* Reduced padding */
+    max-height: 300px; /* Re-added max-height */
+    overflow-y: auto; /* Re-added overflow-y */
+    scrollbar-gutter: stable; /* <-- Add this line */
+    scrollbar-width: thin; /* Custom scrollbar width */
+    scrollbar-color: var(--button-primary-bg-light) var(--card-background-light); /* Custom scrollbar color */
+}
+
+body.dark-mode #entry-list {
+    border-color: var(--border-color);
+    scrollbar-color: var(--button-primary-bg) var(--card-background); /* Dark mode scrollbar color */
+}
+
+/* Custom scrollbar for Webkit browsers (Chrome, Safari, Edge) */
+#entry-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+#entry-list::-webkit-scrollbar-track {
+    background: var(--card-background-light);
+    border-radius: 10px;
+}
+
+body.dark-mode #entry-list::-webkit-scrollbar-track {
+    background: var(--card-background);
+}
+
+#entry-list::-webkit-scrollbar-thumb {
+    background-color: var(--button-primary-bg-light);
+    border-radius: 10px;
+    border: 2px solid var(--card-background-light); /* Match track background */
+}
+
+body.dark-mode #entry-list::-webkit-scrollbar-thumb {
+    background-color: var(--button-primary-bg);
+    border: 2px solid var(--card-background); /* Match dark mode track background */
+}
+
+
+#entry-list li {
+    background-color: var(--card-background-light);
+    border: 1px solid var(--border-color-light);
+    padding: 10px 15px; /* Reduced padding */
+    margin-bottom: 8px; /* Reduced margin */
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1rem; /* Slightly reduced font size */
+    color: var(--text-color-light);
+    transition: background-color var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+    cursor: pointer;
+}
+
+#entry-list li:hover {
+    background-color: var(--list-item-hover-light);
+    border-color: var(--button-primary-bg-light);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+}
+
+body.dark-mode #entry-list li:hover {
+    background-color: var(--list-item-hover);
+    border-color: var(--button-primary-bg);
+}
+
+/* Message Styling (Success/Error) */
+#message-container {
+    margin-top: 10px; /* Reduced margin */
+    padding: 10px; /* Reduced padding */
+    border-radius: 5px;
+    font-weight: 500;
+    display: none;
+    opacity: 0;
+    transition: opacity var(--transition-normal) ease-in-out;
+}
+
+#message-container.show {
+    display: block;
+    opacity: 1;
+}
+
+.message-success {
+    background-color: var(--message-success-bg-light);
+    color: var(--message-success-color-light);
+    border: 1px solid var(--message-success-color-light);
+}
+
+body.dark-mode .message-success {
+    background-color: var(--message-success-bg);
+    color: var(--message-success-color);
+    border-color: var(--message-success-color);
+}
+
+.message-error {
+    background-color: var(--message-error-bg-light);
+    color: var(--message-error-color-light);
+    border: 1px solid var(--message-error-color-light);
+}
+
+body.dark-mode .message-error {
+    background-color: var(--message-error-bg);
+    color: var(--message-error-color);
+    border-color: var(--message-error-color);
+}
+
+/* Basic Responsiveness */
+@media (max-width: 600px) {
+    .container {
+        padding: 15px; /* Reduced padding */
+        margin: 10px; /* Reduced margin */
+    }
+
+    h1, h2 {
+        font-size: 1.6rem; /* Further reduced font size for mobile */
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .form-actions button {
+        width: 100%;
+    }
+}
+
+/* Fixes for sidebar text visibility */
+body.dark-mode .sidebar h2 {
+    color: var(--header-color);
+}
+
+.sidebar ul li a {
+    color: var(--text-color-light);
+}
+
+body.dark-mode .sidebar ul li a {
+    color: var(--text-color);
+}
+
+/* Styles for the Random Element Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: var(--card-background-light);
+    margin: auto;
+    padding: 25px; /* Reduced padding */
+    border: 1px solid var(--border-color-light);
+    border-radius: 10px; /* Slightly less rounded */
+    max-width: 500px; /* Slightly narrower */
+    width: 90%;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* Slightly softer shadow */
+    position: relative;
+    text-align: center;
+    color: var(--text-color-light);
+}
+
+body.dark-mode .modal-content {
+    background-color: var(--card-background);
+    border-color: var(--border-color);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.4); /* Slightly softer shadow for dark mode */
+    color: var(--text-color);
+}
+
+.modal-content h3 {
+    margin-top: 0;
+    font-size: 1.8rem; /* Reduced font size */
+    color: var(--header-color-light);
+    margin-bottom: 20px; /* Reduced space */
+}
+
+body.dark-mode .modal-content h3 {
+    color: var(--header-color);
+}
+
+.modal-content .random-label {
+    font-weight: 600;
+    margin-top: 15px; /* Reduced space */
+    margin-bottom: 6px; /* Reduced space */
+    font-size: 1rem; /* Slightly reduced font size */
+    color: var(--text-color-light);
+}
+
+body.dark-mode .modal-content .random-label {
+    color: var(--text-color);
+}
+
+.modal-content .random-value {
+    font-size: 1.2rem; /* Reduced font size */
+    margin-bottom: 15px; /* Reduced space */
+    padding: 6px 10px; /* Reduced padding */
+    background-color: var(--list-item-hover-light);
+    border-radius: 6px;
+    word-wrap: break-word;
+    font-weight: 500;
+}
+
+body.dark-mode .modal-content .random-value {
+    background-color: var(--list-item-hover);
+}
+
+.modal-content .random-comment-content {
+    text-align: left;
+    font-size: 0.95rem; /* Reduced font size */
+    padding: 8px 12px; /* Reduced padding */
+    background-color: var(--list-item-hover-light);
+    border-radius: 6px;
+    margin-bottom: 10px; /* Reduced space */
+    line-height: 1.5; /* Slightly reduced line height */
+}
+
+body.dark-mode .modal-content .random-comment-content {
+    background-color: var(--list-item-hover);
+}
+
+.modal-content .random-comment-content p {
+    margin: 0;
+}
+
+
+.modal-button {
+    padding: 10px 20px; /* Reduced padding */
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem; /* Reduced font size */
+    font-weight: 600;
+    margin-top: 10px; /* Reduced margin */
+    transition: background-color var(--transition-fast), box-shadow var(--transition-fast);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.modal-button:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+#random-answer-btn {
+    background-color: var(--button-primary-bg-light);
+    color: white;
+}
+
+#random-answer-btn:hover {
+    background-color: var(--button-primary-hover-light);
+}
+
+body.dark-mode #random-answer-btn {
+    background-color: var(--button-primary-bg);
+}
+
+body.dark-mode #random-answer-btn:hover {
+    background-color: var(--button-primary-hover);
+}
+
+.close-button {
+    color: var(--text-color-light);
+    position: absolute;
+    top: 10px; /* Adjusted position */
+    right: 15px; /* Adjusted position */
+    font-size: 28px; /* Reduced font size */
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: var(--button-delete-bg-light);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+body.dark-mode .close-button {
+    color: var(--text-color);
+}
+
+body.dark-mode .close-button:hover,
+body.dark-mode .close-button:focus {
+    color: var(--button-delete-bg);
+}
+
+/* Style for the random button itself (not the modal) */
+#random-btn {
+    background-color: var(--button-primary-bg-light);
+    color: white;
+    padding: 10px 18px; /* Reduced padding */
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.95rem; /* Reduced font size */
+    font-weight: 600;
+    transition: background-color var(--transition-fast), box-shadow var(--transition-fast);
+    width: 100%;
+    margin-top: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+#random-btn:hover {
+    background-color: var(--button-primary-hover-light);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+body.dark-mode #random-btn {
+    background-color: var(--button-primary-bg);
+}
+
+body.dark-mode #random-btn:hover {
+    background-color: var(--button-primary-hover);
+}

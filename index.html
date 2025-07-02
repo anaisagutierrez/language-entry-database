@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vocabulary Manager</title>
+  <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+   <style>
+    body {
+      background-color: var(--background-color);
+      color: var(--text-color);
+      display: flex; /* Use flexbox for layout */
+      min-height: 100vh; /* Ensure body takes full viewport height */
+      flex-direction: column; /* Stack children vertically */
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    header h1 {
+      font-size: 1.8rem;
+      font-weight: 600;
+    }
+    .theme-toggle {
+      background: none;
+      color: inherit;
+      border: 1px solid var(--border-color);
+      padding: 8px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    /* Styles for the sidebar and main content */
+    .sidebar {
+      width: 250px; /* Adjust as needed */
+      background-color: var(--card-background-light); /* Or a specific sidebar color */
+      padding: 20px;
+      box-shadow: var(--shadow-light);
+      display: flex;
+      flex-direction: column;
+      color: var(--text-color-light);
+      transition: background-color var(--transition-normal), color var(--transition-normal), box-shadow var(--transition-normal);
+    }
+
+    body.dark-mode .sidebar {
+      background-color: var(--card-background);
+      box-shadow: var(--shadow-dark);
+      color: var(--text-color);
+    }
+
+    .sidebar h2 {
+      color: var(--header-color-light);
+      font-size: 1.4rem;
+      margin-top: 0;
+      margin-bottom: 20px;
+    }
+
+    body.dark-mode .sidebar h2 {
+      color: var(--header-color);
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+      flex-grow: 1; /* Allow the list to take space */
+    }
+
+    .sidebar ul li {
+      margin-bottom: 10px;
+    }
+
+    .sidebar ul li a {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      text-decoration: none;
+      color: var(--text-color-light);
+      border-radius: 5px;
+      transition: background-color var(--transition-normal);
+      font-size: 0.95rem;
+    }
+
+    body.dark-mode .sidebar ul li a {
+      color: var(--text-color);
+    }
+
+    .sidebar ul li a:hover {
+      background-color: var(--list-item-hover-light);
+    }
+
+    body.dark-mode .sidebar ul li a:hover {
+      background-color: var(--list-item-hover);
+    }
+
+    .sidebar ul li a.active {
+      background-color: var(--button-primary-bg-light);
+      color: white;
+      font-weight: 500;
+    }
+
+    body.dark-mode .sidebar ul li a.active {
+      background-color: var(--button-primary-bg);
+    }
+  </style>
+
+</head>
+<body>
+  <main style="flex-grow: 1; display: flex;">
+    <div class="sidebar">
+
+      <h2>Vocabulary App</h2>
+
+      <div >
+            <input type="checkbox" id="theme-checkbox" checked />
+            <label for="theme-checkbox">Dark Mode</label>
+      </div>
+
+      <nav>
+        <ul>
+          <li><a href="#" id="add-element-link" class="active">Add Elements</a></li>
+          <li><a href="#" id="visualize-menu-link">Visualize Menu</a></li>
+        </ul>
+      </nav>
+      
+      
+    </div>
+
+    <div class="container" id="main-content-container">
+      <header>
+        <h1 id="main-content-title">Add New Vocabulary Entry</h1>
+      </header>
+
+      <div id="form-area">
+        <form id="vocab-form">
+          <input type="hidden" id="entry-key" />
+          <div class="input-group">
+            <label for="spanish-word">Spanish Word:</label>
+            <input type="text" id="spanish-word" required />
+          </div>
+          <div class="input-group">
+            <label for="english-word">English Translation:</label>
+            <input type="text" id="english-word" required />
+          </div>
+          <div class="input-group">
+            <label for="comment-editor">Comments/Context:</label>
+            <div id="comment-editor"></div>
+          </div>
+          <div class="input-group">
+            <label for="entry-type">Type:</label>
+            <select id="entry-type">
+              <option value="expression">Expression</option>
+              <option value="word">Word</option>
+              <option value="phrasal_verb">Phrasal Verb</option>
+              <!-- <option value="noun">Noun</option> -->
+              <option value="verb">Verb</option>
+              <option value="connector">Connector</option>
+              <option value="conversation">Conversation</option>
+              <option value="pronunciation">Pronunciation</option>
+            </select>
+          </div>
+          <!-- <div class="input-group checkbox-group"> -->
+           <div>
+            <input type="checkbox" id="learned-checkbox" />
+            <label for="learned-checkbox">Mark as Learned</label>
+          </div>
+          <!-- </div> -->
+          <div class="form-actions">
+            <button type="submit" id="save-btn">Save Entry</button>
+            <button type="button" id="cancel-btn">Cancel</button>
+            <button type="button" id="new-btn" style="display: none">Add New</button>
+            <button type="button" id="delete-btn" style="display: none">Delete</button>
+          </div>
+
+         
+        </form>
+        <div id="message-container"></div>
+      </div>
+
+      <div id="controls-area" style="display: none;">
+        <div class="search-group">
+          <label for="search-input">Search Entries:</label>
+          <input type="text" id="search-input" placeholder="Search by Spanish or English word..." />
+        </div>
+        <div class="input-group filter-group">
+          <label for="status-filter">Filter by Status:</label>
+          <select id="status-filter">
+            <option value="all">All Entries</option>
+            <option value="learned">Learned Only</option>
+            <option value="unlearned">Unlearned Only</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label for="type-filter">Filter by Type:</label>
+          <select id="type-filter">
+            <option value="all">All Types</option>
+            <option value="expression">Expression</option>
+            <option value="word">Word</option>
+            <option value="phrasal_verb">Phrasal Verb</option>
+            <!-- <option value="noun">Noun</option> -->
+            <option value="verb">Verb</option>
+            <option value="connector">Connector</option>
+            <option value="conversation">Conversation</option>
+            <option value="pronunciation">Pronunciation</option>
+          </select>
+        </div>
+       
+        <div class="input-group random-button-group">
+          <button type="button" id="random-btn">Get Random Element</button>
+        </div>
+      </div>
+
+      <ul id="entry-list"></ul>
+    </div>
+
+    <div id="random-modal" class="modal" style="display:none;" role="dialog" aria-modal="true">
+      <div class="modal-content">
+        <span class="close-button" id="random-close-btn" aria-label="Close modal">&times;</span>
+        <h3>Random Vocabulary Entry</h3>
+        <p class="random-label">Spanish:</p>
+        <p id="random-spanish" class="random-value"></p>
+        <button id="random-answer-btn" class="modal-button">Show Answer</button>
+        <div id="random-answer-content" style="display:none;">
+          <p class="random-label">English:</p>
+          <p id="random-english" class="random-value"></p>
+          <p class="random-label">Comment:</p>
+          <div id="random-comment" class="random-comment-content"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+  <script type="module" src="script.js"></script>
+</body>
+</html>
