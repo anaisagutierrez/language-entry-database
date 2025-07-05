@@ -275,7 +275,7 @@ function resetForm() {
   currentEntryKey = null;
   vocabForm.reset();
   quill.root.innerHTML = '';
-  entryTypeSelect.value = 'word';
+  entryTypeSelect.value = 'expression';
   learnedCheckbox.checked = false;
   saveBtn.textContent = 'Save Entry';
   deleteBtn.style.display = 'none';
