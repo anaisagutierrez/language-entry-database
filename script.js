@@ -36,6 +36,7 @@ const searchInput = document.getElementById('search-input');
 const typeFilter = document.getElementById('type-filter'); // Type filter for the list
 const statusFilter = document.getElementById('status-filter'); // Status filter for the list
 const randomBtn = document.getElementById('random-btn');
+const nextRandomBtn = document.getElementById('new-random-btn');
 const darkCheckbox = document.getElementById('theme-checkbox');
 
 // Modal Elements
@@ -84,6 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Random element functionality
   randomBtn.addEventListener('click', fetchRandomEntry);
+  nextRandomBtn.addEventListener('click', fetchRandomEntry);
   randomAnswerBtn.addEventListener('click', showRandomAnswer);
   randomCloseBtn.addEventListener('click', hideRandomModal);
 
