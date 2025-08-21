@@ -718,7 +718,7 @@ body.sidebar-closed .sidebar {
 #main-content-container {
     padding: 20px;
     flex: 1; /* Allow it to grow and fill the space */
-    margin-left: 250px; /* Keep it offset from the sidebar */
+    margin-left: 25px; /* Keep it offset from the sidebar */
     transition: margin-left var(--transition-normal);
 }
 
