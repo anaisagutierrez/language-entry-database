@@ -38,6 +38,10 @@ const statusFilter = document.getElementById('status-filter'); // Status filter 
 const randomBtn = document.getElementById('random-btn');
 const nextRandomBtn = document.getElementById('new-random-btn');
 const darkCheckbox = document.getElementById('theme-checkbox');
+const sidebarCollapseCheckbox = document.getElementById('sidebar-collapse-checkbox');
+// Sidebar collapse event listener
+const sidebarCollapseToggle = document.getElementById('sidebar-collapse-toggle');
+
 
 // Modal Elements
 const randomModal = document.getElementById('random-modal');
@@ -54,6 +58,16 @@ const formArea = document.getElementById('form-area');
 const controlsArea = document.getElementById('controls-area');
 const addElementLink = document.getElementById('add-element-link');
 const visualizeMenuLink = document.getElementById('visualize-menu-link');
+// Sidebar collapse event listener
+// sidebarCollapseCheckbox.addEventListener('change', () => {
+//     document.body.classList.toggle('sidebar-closed');
+// });
+
+
+sidebarCollapseToggle.addEventListener('click', () => {
+    document.body.classList.toggle('sidebar-closed');
+});
+
 
 document.addEventListener('DOMContentLoaded', () => {
   quill = new Quill('#comment-editor', {
@@ -333,4 +347,3 @@ function hideRandomModal() {
   randomEnglishDiv.textContent = '';
   randomCommentDiv.innerHTML = '';
 }
-

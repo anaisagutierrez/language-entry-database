@@ -707,3 +707,80 @@ body.dark-mode #random-btn {
 body.dark-mode #random-btn:hover {
     background-color: var(--button-primary-hover);
 }
+
+/* New CSS to collapse the sidebar */
+body.sidebar-closed .sidebar {
+    width: 0px;
+    padding: 0;
+    overflow: hidden;
+}
+
+#main-content-container {
+    padding: 20px;
+    flex: 1; /* Allow it to grow and fill the space */
+    margin-left: 250px; /* Keep it offset from the sidebar */
+    transition: margin-left var(--transition-normal);
+}
+
+body.sidebar-closed #main-content-container {
+    margin-left: 10px;
+    padding-left: 10px; /* Reduce padding on the left side to create a more compact look */
+
+}
+
+/* .sidebar-toggle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+    cursor: pointer;
+    margin-top: top; 
+} */
+
+
+/* This rule positions the toggle icon */
+/* .sidebar-toggle {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 250px; 
+    z-index: 1001; 
+    cursor: pointer;
+    transition: left var(--transition-normal);
+}
+
+body.sidebar-closed .sidebar-toggle {
+    left: 10px; 
+    padding-right: 15px;
+} */
+
+/* This rule positions the toggle icon */
+.sidebar-toggle {
+    position: fixed;
+    top: 20px; /* Adjust this value to set the distance from the top */
+    left: 250px; /* Aligned with the sidebar's edge */
+    z-index: 1001; /* Ensure it stays on top */
+    cursor: pointer;
+    transition: left var(--transition-normal);
+    transform: none; /* Remove the vertical transform */
+}
+
+body.sidebar-closed .sidebar-toggle {
+    left: 10px; /* Adjust this value to control where the icon appears when the sidebar is hidden */
+    padding-right: 15px;
+}
+
+.collapse-icon {
+    width: 24px; /* Adjust size as needed */
+    height: 24px;
+    filter: invert(0.8); /* Makes the icon visible in dark mode */
+    transition: transform var(--transition-fast), filter var(--transition-fast);
+}
+
+body.dark-mode .collapse-icon {
+    filter: invert(1);
+}
+
+body.sidebar-closed .collapse-icon {
+    transform: rotate(180deg); /* Optional: Rotates the icon when collapsed */
+}
